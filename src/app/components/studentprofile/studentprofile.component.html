@@ -1,0 +1,270 @@
+<div class="mx-10 md:mx-20">
+    <div class="bg-white mt-3 p-2 rounded">
+      <div class="flex justify-between items-center mx-1 bg-slate-300 rounded p-1">
+        <div class="pl-2 py-1 text-gray-700 font-bold uppercase">
+          Student Profile :
+        </div>
+      </div>
+      <div class="grid grid-cols-4 m-2">
+        <div class="ProfileImage flex justify-center">
+          <div class="h-3/4 w-[90%]">
+            <div class="flex justify-center items-center">
+              <img [src]="profileImage" class="rounded-full ring-1 ring-gray-700 p-1 object-cover" alt="ProfileImage" (error)="img.src='https://localhost:7265/ProfileImages/defaultImage.jpg'" #img>
+            </div>
+            <div class="flex justify-center mt-2">
+              <button type="button" class="bg-slate-300  rounded p-1 border border-slate-500 hover:bg-slate-500 hover:text-white" (click)="imageModeltoggle()">
+                Change Profile Pic<i class="pi pi-pencil underline mx-1 p-1"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <form [formGroup]="editProfileForm" (ngSubmit)="updateUser()" class="col-span-3">
+          <div class="grid grid-cols-4 mx-1 mt-1 bg-gray-200 p-1 rounded items-center pl-2">
+            <div class="">Full Name</div>
+            <div class="font-bold">:</div>
+            <div class="col-span-2">
+              <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline hover:border-gray-500"
+                id="name"
+                type="text"
+                placeholder="Type your name" 
+                formControlName="name"
+                name="name"/>
+                <small
+                *ngIf="name.invalid && (name.dirty || name.touched)"
+                class="block text-red-600"
+              >
+                <div *ngIf="name.errors?.['required']">Name is required.</div>
+                <div *ngIf="name.errors?.['pattern']">Enter a valid Name</div>
+              </small>
+            </div>
+          </div>
+          <div class="grid grid-cols-4 mx-1 mt-1 bg-gray-200 p-1 rounded items-center pl-2">
+            <div class="">Email</div>
+            <div class="font-bold">:</div>
+            <div class="col-span-2 px-3">{{ editProfileForm.value.email }}</div>
+          </div>
+          <div class="grid grid-cols-4 mx-1 mt-1 bg-gray-200 p-1 rounded items-center pl-2">
+            <div class="">Age</div>
+            <div class="font-bold">:</div>
+            <div class="col-span-2">
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline hover:border-gray-500"
+                id="age"
+                type="number" 
+                formControlName="age"
+                name="age"/>
+                <small
+                *ngIf="age.invalid && (age.dirty || age.touched)"
+                class="block text-red-600"
+              >
+                <div *ngIf="age.errors?.['required']">Age is required.</div>
+              </small>
+            </div>
+          </div>
+          <div class="grid grid-cols-4 mx-1 mt-1 bg-gray-200 p-1 rounded items-center pl-2">
+            <div class="">Phone Number</div>
+            <div class="font-bold">:</div>
+            <div class="col-span-2">
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline hover:border-gray-500"
+                id="phone"
+                type="text"
+                placeholder="Enter the Number" 
+                formControlName="phone"
+                name="phone"/>
+                <small
+                *ngIf="phone.invalid && (phone.dirty || phone.touched)"
+                class="block text-red-600"
+              >
+                <div *ngIf="phone.errors?.['required']">Phone Number is required.</div>
+                <div *ngIf="phone.errors?.['pattern']">Phone Number should be valid.</div>
+              </small>
+            </div>
+          </div>
+          <div class="grid grid-cols-4 mx-1 mt-1 bg-gray-200 p-1 rounded items-center pl-2 pb-0">
+            <div class="">Address</div>
+            <div class="font-bold">:</div>
+            <div class="col-span-2">
+              <textarea class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline hover:border-gray-500"
+              placeholder="Type your address" 
+              id="address"
+              formControlName="address"
+              name="address" rows="2"></textarea>
+              <small
+              *ngIf="address.invalid && (address.dirty || address.touched)"
+              class="block text-red-600"
+              >
+                <div *ngIf="address.errors?.['required']">Address is required.</div>
+              </small>
+            </div>
+          </div>
+          <div *ngIf="session.JwtTokenData().roleName==='Student'" class="grid grid-cols-4 mx-1 mt-1 bg-gray-200 p-1 rounded items-center pl-2">
+            <div class="">Password</div>
+            <div class="font-bold">:</div>
+            <div class="col-span-2">
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline hover:border-gray-500"
+                id="password" 
+                type={{passtype}}
+                placeholder="**********" 
+                formControlName="password" 
+                name="password">
+                <i (click)="ChangeType()" class="pi {{passicon}} absolute right-16 md:right-28 pt-1 cursor-pointer text-lg text-gray-500"></i>
+                <small
+                *ngIf="password.invalid && (password.dirty || password.touched)"
+                class="block text-red-600">
+                  <div *ngIf="password.errors?.['required']">Password is required.</div>
+                </small>
+            </div>
+          </div>
+          <div class="p-1 pb-0 mt-1 rounded flex justify-end">
+            <button 
+            class="bg-slate-500 hover:bg-slate-600 hover:shadow-lg text-white font-bold p-2 rounded "    
+            type="submit" [disabled]="editProfileForm.invalid">
+                Update Profile
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="bg-white mt-2 p-2 rounded">
+        <div class="flex justify-between items-center mx-1 bg-slate-300 rounded p-1">
+            <div class="pl-2 py-1 text-gray-700 font-bold capitalize">
+                Marks List :
+            </div>
+                <button *ngIf="session.JwtTokenData().roleName !== 'Student'" class="bg-green-600 p-2 py-1 mr-1 rounded text-white hover:scale-105 hover:bg-green-700" (click)="toggleMarkModal()">
+                    Add Marks
+                </button>
+        </div>
+        <div class="mx-1 mt-2 rounded items-center text-center border">
+            <div class="p-2 grid grid-cols-4 rounded rounded-b-none bg-slate-600 text-white">
+                <div>Subject Name</div>
+                <div>Marks</div>
+                <div>Grade</div>
+                <div></div>
+            </div>
+            <div *ngFor="let marks of markList| paginate:{itemsPerPage:pageSize,currentPage:currentPage};let i=index" class="p-2 py-1 grid grid-cols-4 border-b-2">
+                <div class="ml-3 capitalize flex gap-4">
+                    <span class="px-2s">
+                        {{i+1+(pageSize*(currentPage-1))}}.
+                    </span>
+                    <span class="">
+                        {{marks.subjectName}}
+                    </span>
+                </div>
+                <div>{{ marks.obtainedMarks }}</div>
+                <div>{{ marks.gradeCode}}</div>
+                <div>
+                  <button *ngIf="session.JwtTokenData().roleName !== 'Student'" class="border border-black p-1 py-0 rounded hover:text-red-600 hover:border-red-600 hover:bg-gray-200" (click)="deleteMark(marks.studentId,marks.subjectId)">
+                    <i class="pi pi-trash"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="bg-white rounded-b flex justify-center items-center border-t-2 border-black h-10 pt-3">
+                <pagination-controls class="flex items-center text-center text-gray-500" (pageChange)="currentPage = $event" previousLabel="Previous" nextLabel="Next"></pagination-controls>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Model for add Mark -->
+<div [ngClass]="{'hidden': !modalforMark}" class="absolute w-full backdrop-blur-sm top-12" style="height: 90%;">
+    <div class="center-code w-96 shadow-lg">
+        <div class=" bg-white border-blue-700 rounded-lg shadow">
+            <div class="flex items-center justify-between p-3 py-2 border-b rounded-t border-gray-600 bg-slate-300">
+                <h3 class="text-lg font-semibold text-gray-700">
+                    Insert Marks Of Student
+                </h3>
+                <button type="button" class="text-gray-500 bg-transparent hover:bg-gray-100 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center" (click)="toggleMarkModal()">
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                    </svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+            </div>
+            <form class="p-4" [formGroup]="marksForm" (ngSubmit)="insertMarks()">
+                <div class="grid gap-2 mb-3 grid-cols-2">
+                    <div class="col-span-2">
+                        <label for="subjectId" class="block mb-2 text-sm font-medium text-gray-900 dark">
+                            Subject Name :
+                        </label>
+                        <select id="subjectId"
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline hover:border-gray-500 capitalize"
+                        formControlName="subjectId"
+                        >
+                            <option [value]="null" selected disabled>Choose a Subject</option>
+                            <option 
+                            *ngFor="let subject of subjectList"
+                            [value]="subject.id"
+                            class="w-full flex gap-3">
+                                {{subject.s_Name}} : {{subject.s_Code}}
+                            </option>
+                          </select>
+                        <small
+                            *ngIf="subjectId.invalid && (subjectId.dirty || subjectId.touched)"
+                            class="block text-red-600"
+                            >
+                            <div *ngIf="subjectId.errors?.['required']">Subject Name is required.</div>
+                        </small>
+                    </div>
+                    <div class="col-span-2">
+                        <label for="obtainedMarks" class="block mb-2 text-sm font-medium text-gray-900 dark">
+                            Obtained Marks :
+                        </label>
+                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline hover:border-gray-500"
+                        id="obtainedMarks"
+                        type="number"
+                        placeholder="" 
+                        formControlName="obtainedMarks"
+                        name="obtainedMarks"/>
+                        
+                        <small
+                            *ngIf="obtainedMarks.invalid && (obtainedMarks.dirty || obtainedMarks.touched)"
+                            class="block text-red-600"
+                            >
+                            <div *ngIf="obtainedMarks.errors?.['required']">Marks is required.</div>
+                            <div *ngIf="obtainedMarks.errors?.['pattern']">Marks must be in 0-100.</div>
+                        </small>  
+                    </div>
+                </div>
+                <div class="flex justify-end">
+                    <button type="submit" class="text-white flex items-center bg-slate-500 hover:bg-slate-600 hover:shadow-lg focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                    [disabled]="marksForm.invalid">
+                        Submit
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Model Ends -->
+<!-- Delete Models -->
+<app-delete-popup (conformationEvent)="conformationFun($event)" [modalOpen]="deleteModel" deleteType="Marks"></app-delete-popup>
+
+<!-- Image Model -->
+<div [ngClass]="{'hidden': !imageModel}" class="absolute w-full backdrop-blur-sm top-12 h-[90%]">
+  <div class="absolute w-1/2 h-3/4 top-[5%] left-1/2 transform -translate-x-1/2 shadow-lg">
+      <div class=" bg-white border-blue-700 rounded-lg shadow h-full">
+          <div class="flex items-center justify-between p-3 py-2 border-b rounded-t border-gray-600 bg-slate-300">
+              <h3 class="text-lg font-semibold text-gray-700">
+                  Update Image
+              </h3>
+              <button type="button" class="text-gray-500 bg-transparent hover:bg-gray-100 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center" (click)="imageModeltoggle()">
+                  <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                  </svg>
+                  <span class="sr-only">Close modal</span>
+              </button>
+          </div>
+          <div class="m-2 bg-slate-300 rounded-sm">
+            <div class="flex justify-between gap-2">
+              <input type="file" class="block bg-slate-500 rounded-sm cursor-pointer text-white w-3/4 focus:outline-none"
+              (change)="selectFile($event)">
+              <button class="bg-slate-500 text-white rounded-sm w-1/4" (click)="changeImageFunction()">
+                Update
+              </button>
+            </div>
+            <!-- Image Output -->
+            <div class="flex justify-center h-[25rem] w-full p-2">
+              <img [src]="imageUrl" class="object-contain h-full rounded p-1" (error)="img.src='https://placehold.co/300'" #img>
+            </div>
+          </div>
+      </div>
+  </div>
+</div>

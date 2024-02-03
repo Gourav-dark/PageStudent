@@ -1,0 +1,22 @@
+/* You can add global styles to this file, and also import other style files */
+/* Add by Gourav Sharma */
+@import "primeicons/primeicons.css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.center-code{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+button[type=submit][disabled] {
+    background: #e2e8f0;
+    transition: background .5s  ease-in-out;
+}

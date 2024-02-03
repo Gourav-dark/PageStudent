@@ -1,0 +1,114 @@
+<div class="mx-5 md:mx-20">
+  <div class="bg-white mx-4 mt-3 p-2 rounded">
+    <div class="flex justify-between items-center mx-1 bg-slate-300 rounded p-1">
+      <div class="pl-2 text-gray-700 font-bold uppercase">
+        Profile :
+      </div>
+    </div>
+    <form [formGroup]="editProfileForm" (ngSubmit)="updateUser()">
+      <div class="grid grid-cols-4 mx-1 mt-1 bg-gray-200 p-1 rounded items-center pl-2">
+        <div class="">Full Name</div>
+        <div class="font-bold">:</div>
+        <div class="col-span-2">
+          <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline hover:border-gray-500"
+            id="name"
+            type="text"
+            placeholder="Type your name" 
+            formControlName="name"
+            name="name"/>
+            <small
+            *ngIf="name.invalid && (name.dirty || name.touched)"
+            class="block text-red-600"
+          >
+            <div *ngIf="name.errors?.['required']">Name is required.</div>
+            <div *ngIf="name.errors?.['pattern']">Enter a valid Name</div>
+          </small>
+        </div>
+      </div>
+      <div class="grid grid-cols-4 mx-1 mt-1 bg-gray-200 p-1 rounded items-center pl-2">
+        <div class="">Email</div>
+        <div class="font-bold">:</div>
+        <div class="col-span-2 px-3">{{ editProfileForm.value.email }}</div>
+      </div>
+      <div class="grid grid-cols-4 mx-1 mt-1 bg-gray-200 p-1 rounded items-center pl-2">
+        <div class="">Age</div>
+        <div class="font-bold">:</div>
+        <div class="col-span-2">
+            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline hover:border-gray-500"
+            id="age"
+            type="number" 
+            formControlName="age"
+            name="age"/>
+            <small
+            *ngIf="age.invalid && (age.dirty || age.touched)"
+            class="block text-red-600"
+          >
+            <div *ngIf="age.errors?.['required']">Age is required.</div>
+          </small>
+        </div>
+      </div>
+      <div class="grid grid-cols-4 mx-1 mt-1 bg-gray-200 p-1 rounded items-center pl-2">
+        <div class="">Phone Number</div>
+        <div class="font-bold">:</div>
+        <div class="col-span-2">
+            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline hover:border-gray-500"
+            id="phone"
+            type="text"
+            placeholder="Enter the Number" 
+            formControlName="phone"
+            name="phone"/>
+            <small
+            *ngIf="phone.invalid && (phone.dirty || phone.touched)"
+            class="block text-red-600"
+          >
+            <div *ngIf="phone.errors?.['required']">Phone Number is required.</div>
+            <div *ngIf="phone.errors?.['pattern']">Phone Number should be valid.</div>
+          </small>
+        </div>
+      </div>
+      <div class="grid grid-cols-4 mx-1 mt-1 bg-gray-200 p-1 rounded items-center pl-2">
+        <div class="">Address</div>
+        <div class="font-bold">:</div>
+        <div class="col-span-2">
+          <textarea class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline hover:border-gray-500"
+          placeholder="Type your address" 
+          id="address"
+          formControlName="address"
+          name="address" rows="2"></textarea>
+          <small
+          *ngIf="address.invalid && (address.dirty || address.touched)"
+          class="block text-red-600"
+          >
+            <div *ngIf="address.errors?.['required']">Address is required.</div>
+          </small>
+        </div>
+      </div>
+      <div class="grid grid-cols-4 mx-1 mt-1 bg-gray-200 p-1 rounded items-center pl-2">
+        <div class="">Password</div>
+        <div class="font-bold">:</div>
+        <div class="col-span-2">
+            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline hover:border-gray-500"
+            id="password" 
+            type={{passtype}}
+            placeholder="**********" 
+            formControlName="password" 
+            name="password">
+            <i (click)="ChangeType()" class="pi {{passicon}} fixed right-20 md:right-32 pt-1 cursor-pointer text-lg text-gray-500"></i>
+            <small
+            *ngIf="password.invalid && (password.dirty || password.touched)"
+            class="block text-red-600">
+              <div *ngIf="password.errors?.['required']">Password is required.</div>
+            </small>
+        </div>
+      </div>
+      <div class="p-1 pb-0 mt-1 rounded flex justify-end">
+        <button 
+        class="bg-slate-500 text-white font-bold p-2 rounded hover:shadow-lg hover:bg-slate-600"    
+        type="submit"
+        [disabled]="editProfileForm.invalid">
+            Update Profile
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

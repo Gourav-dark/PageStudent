@@ -1,0 +1,13 @@
+<div *ngIf="toastVariable.appear" class="{{toastVariable.type}} w-80 fixed right-4 mt-3 shadow-black shadow-lg py-2 rounded z-50
+    after:absolute after:bottom-0 after:h-1 after:rounded-r after:rounded-es after:bg-gradient-to-r after:from-gray-500 after:to-white
+    after:animate-change-size
+    ">
+    <div class="text-center text-white font-mono">
+        <span class="px-2">
+            {{toastVariable.message}}
+        </span>
+    </div>
+    <button class="bg-white absolute -top-2 -right-2 px-1 rounded-xl text-center hover:bg-gray-500 hover:text-white" (click)="toastVariable.closeToast()">
+        <i class="pi pi-times"></i>
+    </button>
+</div>

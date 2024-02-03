@@ -1,0 +1,49 @@
+<div class="StudentListPage" style="height: 90vh;" >
+    <app-delete-popup (conformationEvent)="conformationFun($event)" [modalOpen]="deleteModel" deleteType="Student"></app-delete-popup>
+    <!-- Student List Part -->
+    <div class="mx-3 mt-2 shadow-lg rounded md:mx-10 h-full">
+        <div class="bg-slate-600 p-2 py-1 mb-1  rounded flex justify-between items-center">
+            <div class="text-white font-bold uppercase" >
+                Students : 
+            </div>
+        </div>
+        <div class="bg-white py-1 rounded rounded-b-none border-b-2 border-black font-bold grid grid-cols-4 text-center text-lg">
+            <div class="grid grid-cols-5 text-left px-2">
+                <span class="">
+                    S.No.
+                </span>
+                <span class="col-span-4">
+                    Name
+                </span>
+            </div>
+            <div>Email</div>
+            <div>Registered Date</div>
+            <div class=""></div>
+        </div>
+        <div class=" bg-white">
+            <div *ngFor="let student of studentList | paginate:{itemsPerPage:pageSize,currentPage:currentPage};let i=index" class="py-1 text-center border border-x-0 grid grid-cols-4 items-center text-lg">
+                <div class="grid grid-cols-5 text-left px-2">
+                    <span class="">
+                        {{i+1+(pageSize*(currentPage-1))}}.
+                    </span>
+                    <span class="col-span-4">
+                        {{student.name}}
+                    </span>
+                </div>
+                <div>{{student.email}}</div>
+                <div>{{student.registeredDate.substring(0,10)}}</div>
+                <div class="flex gap-4 justify-center items-center">
+                    <button class="text-slate-700 hover:text-white" routerLink="/student-profile/{{student.id}}">
+                        <i class="pi pi-info-circle hover:bg-slate-500 rounded-xl hover:shadow hover:shadow-black"></i>
+                    </button>
+                    <button class="border border-black p-1 py-0 rounded hover:text-red-600 hover:border-red-600 hover:bg-gray-200" (click)="deleteStudent(student.id)">
+                        <i class="pi pi-trash"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="bg-white rounded-b flex justify-center items-center border-t-2 border-black h-12 pt-3">
+            <pagination-controls class="flex items-center text-center text-gray-500" (pageChange)="currentPage = $event" previousLabel="Previous" nextLabel="Next"></pagination-controls>
+        </div>
+    </div>
+</div>

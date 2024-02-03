@@ -1,0 +1,8 @@
+a.active{
+    color:  rgb(244 63 94);
+    font-weight:800;
+}
+button.active{
+    background-color: white;
+    color: rgb(17 24 39);
+}

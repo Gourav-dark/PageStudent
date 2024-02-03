@@ -1,0 +1,43 @@
+<header class="w-full sticky top-0 bg-slate-600 ">
+  <div class="flex justify-between items-center p-2">
+    <a class="Logo flex items-center mx-2" routerLink="/">
+      <span>
+        <img src="/assets/images/icon.png" class="h-8"/>
+      </span>
+      <span class="uppercase font-serif text-lg text-white mx-1">
+        Portal
+      </span>
+    </a>
+    <nav class="flex justify-between items-center text-center gap-2 rounded pl-1 uppercase text-gray-100">
+      <a class="  hover:text-gray-900 hover:cursor-pointer p-1
+      text-sm font-serif" routerLink="/home" routerLinkActive="active">
+        Home
+      </a>
+      <a *ngIf="session.getToken() && session.JwtTokenData().roleName !== 'Student'; else StudentProfile" [routerLink]="['/profile', session.JwtTokenData().userId]" routerLinkActive="active" class="text-sm font-serif hover:text-gray-900 hover:cursor-pointer p-1">
+        Profile
+      </a>
+      <ng-template #StudentProfile>
+        <a *ngIf="session.getToken()" [routerLink]="['/student-profile', session.JwtTokenData().userId]" routerLinkActive="active" class="text-sm font-serif hover:text-gray-900 hover:cursor-pointer p-1">
+          Profile
+        </a>
+      </ng-template>
+      <a *ngIf="session.getToken() && session.JwtTokenData().roleName !== 'Student'" class="text-sm font-serif hover:text-gray-900 hover:cursor-pointer p-1" routerLink="/subject" routerLinkActive="active">
+        Subjects
+      </a>
+      <a *ngIf="session.getToken() && session.JwtTokenData().roleName !== 'Student'" class="text-sm font-serif hover:text-gray-900 hover:cursor-pointer p-1" routerLink="/student" routerLinkActive="active">
+        Students
+      </a>
+      <button *ngIf="session.getToken();else LoginWithRegister" class="font-serif uppercase items-center bg-black py-1 px-3 focus:outline-none hover:bg-red-600 hover:text-white rounded " (click)="userLogout()">
+        Logout
+      </button>
+      <ng-template #LoginWithRegister>
+        <button class="font-serif uppercase items-center bg-black border-0 py-1 px-3 focus:outline-none hover:bg-green-600 hover:text-white rounded" routerLink="/login" routerLinkActive="active">
+          Login
+        </button>
+        <button class="font-serif uppercase items-center bg-black border-0 py-1 px-3 focus:outline-none hover:bg-indigo-500 hover:text-white rounded" routerLink="/register" routerLinkActive="active">
+          Register
+        </button>
+      </ng-template>
+    </nav>
+  </div>
+</header>
